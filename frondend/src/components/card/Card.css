@@ -1,0 +1,48 @@
+.continue-reading {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.continue-reading .arrow-icon {
+  margin-right: 5px;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.continue-reading:hover {
+  color: #0056b3;
+}
+
+.continue-reading:hover .arrow-icon {
+  color: #0056b3;
+}
+
+.load-more-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more-button:hover {
+  background-color: #0056b3;
+}
+
+.load-more-button:active {
+  background-color: #004494;
+}
+
+.load-more-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
