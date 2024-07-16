@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; 
+import axios from "axios";
 import "./loginpage.css";
 
 function Login() {
@@ -9,6 +9,14 @@ function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const sessionId = sessionStorage.getItem("sessionId");
+    if (sessionId) {
+      navigate("/admin/dash");
+    }
+  }, []);
+
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -16,7 +24,14 @@ function Login() {
         username,
         password,
       });
-      navigate("/dash");
+
+      if (response.data.sessionId) {
+        sessionStorage.setItem("sessionId", response.data.sessionId);
+
+        navigate("/admin/dash");
+      } else {
+        setError("Login failed. Please try again.");
+      }
     } catch (error) {
       if (error.response && error.response.status === 400) {
         setError("Invalid credentials");
@@ -26,6 +41,7 @@ function Login() {
     }
   };
 
+ 
   return (
     <>
       <div id="form-container">

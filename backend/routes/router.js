@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const multer = require("multer");
 const fs = require("fs");
-const { loginProcess } = require("../controllers/AdminLog");
+const { loginProcess, logout } = require("../controllers/AdminLog");
 const {
   newscreat,
   shownews,
@@ -10,6 +10,8 @@ const {
   addnews,
   deletenews,
 } = require("../controllers/News");
+const { Reglogin } = require("../controllers/Userlog");
+
 const router = express.Router();
 
 const uploadDir = path.join(__dirname, "../public/images");
@@ -31,7 +33,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+router.post("/reg", Reglogin);
 router.post("/login", loginProcess);
+router.post("/logout", logout);
 router.post("/creat", upload.single("file"), newscreat);
 router.get("/admin", shownews);
 router.get("/single/:id", single);

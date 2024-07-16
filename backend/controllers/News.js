@@ -9,7 +9,7 @@ module.exports.newscreat = async (req, res, next) => {
            ...req.body,
            img: imageName
        };
-
+console.log(newsData);
        const news = await newsModel.create(newsData);
        res.json(news);
    } catch (err) {
@@ -38,6 +38,8 @@ module.exports.shownews = async (req, res, next) => {
  };
 
  module.exports.addnews = (req, res, next) => {
+console.log("tetet",req.body);
+
   const id = req.params.id;
   newsModel.findByIdAndUpdate(
       id,

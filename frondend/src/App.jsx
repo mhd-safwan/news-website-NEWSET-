@@ -11,6 +11,7 @@ import NewsDetail from "./components/newsstory/NewsDetail";
 import Breaking from "./pages/user/breaking-news/Breaking";
 import Sports from "./pages/user/sports-news/Sports";
 import Bussines from "./pages/user/bussines-news/Bussines";
+import Logout from "./components/Logout";
 
 const AdminRoutes = () => (
   <>
@@ -18,7 +19,8 @@ const AdminRoutes = () => (
       <Route path="/dash" element={<Dash />} />
       <Route path="/creat" element={<Creatnews />} />
       <Route path="/add/:id" element={<Add />} />
-      <Route path="/admin" element={<Login />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/logout" element={<Logout />} />
     </Routes>
   </>
 );

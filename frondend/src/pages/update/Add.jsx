@@ -9,9 +9,12 @@ function Add() {
   const [date, setDate] = useState("");
   const [des, setDes] = useState("");
   const [story, setStory] = useState("");
+  const [category, setCategory] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+
+
 
   useEffect(() => {
     axios
@@ -38,27 +41,30 @@ function Add() {
       setImagePreview(URL.createObjectURL(file));
     }
   };
-
   const submit = async (e) => {
     e.preventDefault();
-      const Data = new FormData();
-      Data.append("title", title);
-      Data.append("des", des);
-      Data.append("story", story);
-      Data.append("date", date);
+    const data = new FormData();
+    data.append("file", file);
+    data.append("title", title);
+    data.append("des", des);
+    data.append("story", story);
+    data.append("date", date);
+    data.append("category", category);
+
       if (file) {
-        Data.append("img", file);
+        data.append("img", file);
       } else if (imagePreview) {
-        Data.append("img", imagePreview.split('/').pop()); 
+        data.append("img", imagePreview.split('/').pop()); 
       }
+
       try {
-      const response = await axios.put(`http://localhost:8000/addnews/${id}`, Data, {
+      const response = await axios.put(`http://localhost:8000/addnews/${id}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-
       console.log('Response:', response.data);
+      console.log("first"+ date)
       navigate("/admin/dash");
     } catch (err) {
       console.error("Error:", err);
@@ -67,13 +73,15 @@ function Add() {
       } else {
         console.error("Error without response data");
       }
+       
     }
   };
+
 
   return (
     <div className="main">
       <div className="sub-main">
-        <h2>Update News</h2>
+        <h2>update News</h2>
         <form onSubmit={submit}>
           <div className="form">
             <label htmlFor="date">Date</label>
@@ -119,6 +127,18 @@ function Add() {
           </div>
 
           <div className="form">
+            <label htmlFor="category">Category</label>
+            <select name="category" value={category} onChange={(e) =>setCategory(e.target.value)}>
+              <option value="">Select Category</option>
+              <option value="sports">Sports</option>
+              <option value="breaking">Breaking News</option>
+              <option value="business">Business News</option>
+              <option value="Local">Local news</option>
+
+            </select>
+          </div>
+
+          <div className="form">
             <label htmlFor="img">Image</label>
             <label htmlFor="file-upload" className="custom-file-upload">
               Choose File
@@ -134,7 +154,7 @@ function Add() {
           </div>
 
           <button type="submit" className="submit">
-            Update
+            Submit
           </button>
         </form>
       </div>

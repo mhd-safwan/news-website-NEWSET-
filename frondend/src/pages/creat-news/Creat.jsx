@@ -11,6 +11,7 @@ function Creatnews() {
   const [story, setStory] = useState("");
   const [category, setCategory] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
@@ -27,6 +28,12 @@ function Creatnews() {
 
   const Submit = async (e) => {
     e.preventDefault();
+    
+    if (!file || !title || !date || !des || !story || !category) {
+      setErrorMessage("Please fill in all the fields.");
+      return;
+    }
+    
     const data = new FormData();
     data.append("file", file);
     data.append("title", title);
@@ -109,7 +116,6 @@ function Creatnews() {
               <option value="breaking">Breaking News</option>
               <option value="business">Business News</option>
               <option value="Local">Local news</option>
-
             </select>
           </div>
 
@@ -127,6 +133,8 @@ function Creatnews() {
             />
             {imagePreview && <img src={imagePreview} alt="Preview" />}
           </div>
+
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
 
           <button type="submit" className="submit">
             Submit

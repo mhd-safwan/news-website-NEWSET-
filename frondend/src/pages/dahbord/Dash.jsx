@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import './Dash.css';
 
 function Dash() {
   const [news, setNews] = useState([]);
   const [expandedNews, setExpandedNews] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const sessionId = sessionStorage.getItem("sessionId");
+    if (!sessionId) {
+      navigate("/admin"); // Redirect to login if not authenticated
+    } else {
+      fetchNews();
+    }
+  }, [navigate]);
 
   const fetchNews = async () => {
     try {
@@ -17,24 +27,23 @@ function Dash() {
   };
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete("http://localhost:8000/delete/" + id);
-      fetchNews(); 
-    } catch (err) {
-      console.error("Error deleting news:", err);
+    const confirm = window.confirm("Are you sure you want to delete this news item?");
+    if (confirm) {
+      try {
+        await axios.delete("http://localhost:8000/delete/" + id);
+        fetchNews(); 
+      } catch (err) {
+        console.error("Error deleting news:", err);
+      }
     }
   };
 
   const toggleExpand = (id) => {
     setExpandedNews((prevExpandedNews) => ({
       ...prevExpandedNews,
-      [id]: !prevExpandedNews[id]
+      [id]: !prevExpandedNews[id],
     }));
   };
-
-  useEffect(() => {
-    fetchNews();
-  }, []);
 
   return (
     <div>
@@ -42,15 +51,15 @@ function Dash() {
         <h2>News<b> admin dashboard</b></h2>
       </div>
       <div id="add-main">
-      <Link to="/admin/Creat" className="btn btn-info add-new" id="add">Add+</Link>
+        <Link to="/admin/logout">Logout</Link>
+        <Link to="/admin/creat" className="btn btn-info add-new" id="add">Add+</Link>
       </div>
       <div className="container-lg">
         <div className="table-responsive">
           <div className="table-wrapper">
             <div className="table-title">
               <div className="row">
-                <div className="col-sm-4">
-                </div>
+                <div className="col-sm-4"></div>
               </div>
             </div>
             <table className="table table-bordered">

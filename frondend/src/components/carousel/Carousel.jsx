@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import './Carousel.css';
 
 const Carousel = () => {
@@ -26,7 +27,9 @@ const Carousel = () => {
           <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
             <img src={`http://localhost:8000/images/${item.img}`} className="d-block w-100" alt={item.title} />
             <div className="carousel-caption d-none d-md-block">
-              <h5>{item.title}</h5>
+            <Link to={`/news/${item._id}`} className="titlee" >
+                  <h5>{item.title}</h5>
+                </Link>
               <p>{item.des}</p>
             </div>
           </div>
