@@ -12,9 +12,9 @@ const {
   breaking,
   sports,
   business,
-  Local
+  Local,
 } = require("../controllers/News");
-const { Reglogin } = require("../controllers/Userlog");
+const { Reglogin, Userlog } = require("../controllers/Userlog");
 
 const router = express.Router();
 
@@ -40,6 +40,7 @@ router.get("/Local", Local);
 router.get("/business", business);
 router.get("/sports", sports);
 router.get("/breaking", breaking);
+router.post("/Userlog", Userlog);
 router.post("/reg", Reglogin);
 router.post("/login", loginProcess);
 router.post("/logout", logout);
