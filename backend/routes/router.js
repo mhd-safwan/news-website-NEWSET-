@@ -34,6 +34,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+router.get("/sports", sports);
 router.get("/breaking", breaking);
 router.post("/reg", Reglogin);
 router.post("/login", loginProcess);
