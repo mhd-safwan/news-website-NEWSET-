@@ -9,6 +9,8 @@ const {
   single,
   addnews,
   deletenews,
+  breaking,
+  sports
 } = require("../controllers/News");
 const { Reglogin } = require("../controllers/Userlog");
 
@@ -32,7 +34,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
+router.get("/breaking", breaking);
 router.post("/reg", Reglogin);
 router.post("/login", loginProcess);
 router.post("/logout", logout);

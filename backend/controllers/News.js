@@ -68,7 +68,31 @@ module.exports.deletenews = (req, res, next) => {
  
 };
 
-
+module.exports.breaking = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.$limit, 10);
+    
+    const pipeline = [
+      { $match: { category: "breaking" } },
+      { $project: { date: 1, title: 1, des: 1, story: 1, category: 1, img: 1 } }
+    ];
+    
+    if (!limit) {
+      pipeline.push({ $sort: { date: -1 } });
+    } else {
+      pipeline.push(
+        { $sort: { date: -1 } },
+        { $limit: limit }
+      );
+    
+    }
+    
+    const news = await newsModel.aggregate(pipeline);
+    res.json(news);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 
 

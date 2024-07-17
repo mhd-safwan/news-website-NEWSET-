@@ -6,19 +6,21 @@ import './Carousel.css';
 const Carousel = () => {
   const [breakingNews, setBreakingNews] = useState([]);
 
+  
   useEffect(() => {
     const fetchBreakingNews = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/admin");
-        const breakingNewsData = response.data.filter(item => item.category === "breaking");
-        setBreakingNews(breakingNewsData);
+        const limit = 3; 
+        const response = await axios.get(`http://localhost:8000/breaking?$limit=${limit}`);
+        setBreakingNews(response.data);
       } catch (err) {
-        console.error("Error:", err);
+        console.error("Error fetching breaking news:", err);
       }
     };
 
     fetchBreakingNews();
   }, []);
+
 
   return (
     <div id="breakingNewsCarousel" className="carousel slide" data-ride="carousel" data-interval="3000">

@@ -10,9 +10,8 @@ function Cardone() {
   useEffect(() => {
     const fetchBreakingNews = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/admin");
-        const breakingsNewsData = response.data.filter(item => item.category.toLowerCase() === "breaking");
-        setBreakingsNews(breakingsNewsData);
+        const response = await axios.get("http://localhost:8000/breaking");
+        setBreakingsNews(response.data);
       } catch (err) {
         console.error("Error fetching breaking news:", err);
       }

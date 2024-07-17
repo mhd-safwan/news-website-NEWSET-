@@ -6,12 +6,14 @@ import './Dash.css';
 function Dash() {
   const [news, setNews] = useState([]);
   const [expandedNews, setExpandedNews] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const navigate = useNavigate();
 
   useEffect(() => {
     const sessionId = sessionStorage.getItem("sessionId");
     if (!sessionId) {
-      navigate("/admin"); // Redirect to login if not authenticated
+      navigate("/admin"); 
     } else {
       fetchNews();
     }
@@ -19,12 +21,16 @@ function Dash() {
 
   const fetchNews = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/admin");
+      const response = await axios.get("http://localhost:8000/admin?page=${currentPage}&limit=${itemsPerPage}");
       setNews(response.data);
     } catch (err) {
       console.error("Error fetching news:", err);
     }
   };
+
+  useEffect(() => {
+    fetchNews();
+  }, [currentPage, itemsPerPage]);
 
   const handleDelete = async (id) => {
     const confirm = window.confirm("Are you sure you want to delete this news item?");
@@ -37,6 +43,21 @@ function Dash() {
       }
     }
   };
+
+  const totalPages = Math.ceil(news.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = news.slice(startIndex, endIndex);
+
+
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
+
 
   const toggleExpand = (id) => {
     setExpandedNews((prevExpandedNews) => ({
@@ -75,7 +96,7 @@ function Dash() {
                 </tr>
               </thead>
               <tbody>
-                {news.map((item) => (
+                {currentItems.map((item) => (
                   <tr key={item._id}>
                     <td className="date">{item.date}</td>
                     <td className="cat">{item.category}</td>
@@ -108,6 +129,28 @@ function Dash() {
               </tbody>
             </table>
           </div>
+           <button
+           id="pag"
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        Previous
+      </button>
+      {Array.from({ length: totalPages }, (_, index) => (
+        <button
+          key={index + 1}
+          onClick={() => handlePageChange(index + 1)}
+        >
+          {index + 1}
+        </button>
+      ))}
+      <button
+      id="pag"
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+      >
+        Next
+      </button>
         </div>
       </div>
     </div>
