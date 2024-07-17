@@ -12,6 +12,7 @@ import Breaking from "./pages/user/breaking-news/Breaking";
 import Sports from "./pages/user/sports-news/Sports";
 import Bussines from "./pages/user/bussines-news/Bussines";
 import Logout from "./components/Logout";
+import Footer from "./components/footer/Footer";
 
 const AdminRoutes = () => (
   <>
@@ -35,6 +36,7 @@ const UserRoutes = () => (
       <Route path="/sports" element={<Sports />} />
       <Route path="/business" element={<Bussines />} />
     </Routes>
+    <Footer />
   </>
 );
 

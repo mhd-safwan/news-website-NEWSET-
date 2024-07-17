@@ -1,27 +1,110 @@
-.continue-reading {
+.news-container {
+  padding: 20px;
+  overflow-x: auto;
+}
+.news-row {
+  display: inline-flex;
+  gap: 20px;
+}
+.news-card {
+  display: inline-block;
+  vertical-align: top;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  text-align: left; 
+  height: 100%;
+
+}
+.news-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.news-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.news-card-body {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+}
+
+.news-card-date {
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #888;
+}
+
+.news-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #333;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: calc(1.2em * 4);
+  
+}
+
+.news-card-description {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #555;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: calc(1.2em * 4); /* Adjust the line height as necessary */
+}
+
+
+.news-card-link {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
   color: #007bff;
   font-size: 14px;
-  transition: color 0.3s ease;
+  justify-content: space-between;
+  width: 100%; 
 }
 
-.continue-reading .arrow-icon {
-  margin-right: 5px;
+.news-card-link-text {
+  flex-grow: 1;
+}
+
+.news-card-arrow-icon {
+  margin-left: 5px;
   color: #007bff;
-  transition: color 0.3s ease;
 }
 
-.continue-reading:hover {
+.news-card-link:hover {
   color: #0056b3;
 }
 
-.continue-reading:hover .arrow-icon {
+.news-card-link:hover .news-card-arrow-icon {
   color: #0056b3;
 }
 
-.load-more-button {
+.news-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.news-load-more-button {
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
@@ -34,15 +117,17 @@
   transition: background-color 0.3s ease;
 }
 
-.load-more-button:hover {
+.news-load-more-button:hover {
   background-color: #0056b3;
 }
 
-.load-more-button:active {
+.news-load-more-button:active {
   background-color: #004494;
 }
 
-.load-more-button:focus {
+.news-load-more-button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
 }
+
+
