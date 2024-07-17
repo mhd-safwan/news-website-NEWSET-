@@ -25,13 +25,13 @@ const NewsDetail = () => {
 
   return (
     <div className="news-detail">
+      <h1 className="news-detail-title">{news.title}</h1>
       <img
         src={`http://localhost:8000/images/${news.img}`}
         alt={news.title}
         className="news-detail-img"
-        style={{ maxWidth: "100%", height: "auto" }}
       />
-      <h1 className="news-detail-title">{news.title}</h1>
+      
       <p className="news-detail-date">Posted on {news.date}</p>
       <p className="news-detail-description">{news.des}</p>
       <div className="news-detail-story">

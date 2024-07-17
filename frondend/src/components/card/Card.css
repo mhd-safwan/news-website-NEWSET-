@@ -68,7 +68,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: calc(1.2em * 4); /* Adjust the line height as necessary */
+  max-height: calc(1.2em * 4); 
 }
 
 
