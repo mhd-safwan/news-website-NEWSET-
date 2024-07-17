@@ -19,7 +19,7 @@ function SportsCard() {
 
     fetchsportsNews();
   }, []);
-
+  
   return (
     <div className="container">
       {Sports.map((item, index) => (

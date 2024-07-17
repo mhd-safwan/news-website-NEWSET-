@@ -105,6 +105,17 @@ module.exports.sports = async (req, res, next) => {
   }
 };
 
+module.exports.business = async (req, res, next) => {
+  try { 
+    const news = await newsModel.aggregate([
+      { $match: { category: "business" } },
+      { $project: { date: 1, title: 1, des: 1, story: 1, category: 1, img: 1 } }]);
+    res.json(news);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 
 
