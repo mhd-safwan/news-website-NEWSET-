@@ -11,7 +11,8 @@ const {
   deletenews,
   breaking,
   sports,
-  business
+  business,
+  Local
 } = require("../controllers/News");
 const { Reglogin } = require("../controllers/Userlog");
 
@@ -35,6 +36,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+router.get("/Local", Local);
 router.get("/business", business);
 router.get("/sports", sports);
 router.get("/breaking", breaking);
