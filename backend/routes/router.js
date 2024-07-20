@@ -9,12 +9,10 @@ const {
   single,
   addnews,
   deletenews,
-  breaking,
-  sports,
-  business,
-  Local,
+ sort,
+ searchNews
 } = require("../controllers/News");
-const { Reglogin, Userlog } = require("../controllers/Userlog");
+const { Reglogin, Userlog,Userlogout } = require("../controllers/Userlog");
 
 const router = express.Router();
 
@@ -36,18 +34,17 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-router.get("/Local", Local);
-router.get("/business", business);
-router.get("/sports", sports);
-router.get("/breaking", breaking);
+router.get("/serch",searchNews);
+router.get("/sort", sort);
 router.post("/Userlog", Userlog);
 router.post("/reg", Reglogin);
 router.post("/login", loginProcess);
+router.post("/Userlogout", Userlogout);
 router.post("/logout", logout);
 router.post("/creat", upload.single("file"), newscreat);
 router.get("/admin", shownews);
 router.get("/single/:id", single);
-router.put("/addnews/:id", addnews);
+router.put("/addnews/:id", upload.single('img'), addnews);
 router.delete("/delete/:id", deletenews);
 
 module.exports = router;

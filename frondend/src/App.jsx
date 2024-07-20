@@ -13,6 +13,7 @@ import Sports from "./pages/user/sports-news/Sports";
 import Bussines from "./pages/user/bussines-news/Bussines";
 import Logout from "./components/Logout";
 import Footer from "./components/footer/Footer";
+import Userlogin from "./components/userlogin/UserLogin";
 
 const AdminRoutes = () => (
   <>
@@ -30,6 +31,7 @@ const UserRoutes = () => (
   <>
     <Navbar />
     <Routes>
+    <Route path="/login" element={<Userlogin />} />
       <Route path="/" element={<Home />} />
       <Route path="/news/:id" element={<NewsDetail />} />
       <Route path="/breaking-news" element={<Breaking />} />

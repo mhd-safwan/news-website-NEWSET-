@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(session({
-  secret: '123456789t5r',
+  secret: '123456789t5r', 
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }

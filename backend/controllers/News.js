@@ -4,7 +4,6 @@ module.exports.newscreat = async (req, res, next) => {
    const imageName = req.file.filename;
    try {
       
-
        const newsData = {
            ...req.body,
            img: imageName
@@ -38,8 +37,11 @@ module.exports.shownews = async (req, res, next) => {
  };
 
  module.exports.addnews = (req, res, next) => {
-console.log("tetet",req.body);
+console.log("tetet");
 
+console.log("Received data:");
+console.log(req.body); 
+console.log(req.file);
   const id = req.params.id;
   newsModel.findByIdAndUpdate(
       id,
@@ -68,25 +70,20 @@ module.exports.deletenews = (req, res, next) => {
  
 };
 
-module.exports.breaking = async (req, res, next) => {
+
+module.exports.sort = async (req, res, next) => {
   try {
-    const limit = parseInt(req.query.$limit, 10);
-    
+    const category = req.query.category; 
+    const limit = parseInt(req.query.limit, 10); 
     const pipeline = [
-      { $match: { category: "breaking" } },
-      { $project: { date: 1, title: 1, des: 1, story: 1, category: 1, img: 1 } }
+      { $match: { category: category } },
+      { $sort: { date: -1 } } 
     ];
     
-    if (!limit) {
-      pipeline.push({ $sort: { date: -1 } });
-    } else {
-      pipeline.push(
-        { $sort: { date: -1 } },
-        { $limit: limit }
-      );
-    
+    if (limit) {
+      pipeline.push({ $limit: limit }); 
     }
-    
+
     const news = await newsModel.aggregate(pipeline);
     res.json(news);
   } catch (err) {
@@ -94,39 +91,25 @@ module.exports.breaking = async (req, res, next) => {
   }
 };
 
-module.exports.sports = async (req, res, next) => {
-  try { 
-    const news = await newsModel.aggregate([
-      { $match: { category: "sports" } },
-      { $project: { date: 1, title: 1, des: 1, story: 1, category: 1, img: 1 } }]);
-    res.json(news);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+module.exports.searchNews = async (req, res) => {
+
+  try {
+    const news = await newsModel.find({
+      $or: [
+        { title: new RegExp('i') },
+        { des: new RegExp('i') },
+        { story: new RegExp('i') },
+        { category: new RegExp('i') }
+      ]
+    });
+    if (!news) {
+      return res.status(400).json({error: 'enter proper search'})
+    }
+    res.status(200).json(news);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
-
-module.exports.business = async (req, res, next) => {
-  try { 
-    const news = await newsModel.aggregate([
-      { $match: { category: "business" } },
-      { $project: { date: 1, title: 1, des: 1, story: 1, category: 1, img: 1 } }]);
-    res.json(news);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-module.exports.Local = async (req, res, next) => {
-  try { 
-    const news = await newsModel.aggregate([
-      { $match: { category: "Local" } },
-      { $project: { date: 1, title: 1, des: 1, story: 1, category: 1, img: 1 } }]);
-    res.json(news);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
 
 
 

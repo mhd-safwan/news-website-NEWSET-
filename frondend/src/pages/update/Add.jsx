@@ -56,7 +56,9 @@ function Add() {
       } else if (imagePreview) {
         data.append("img", imagePreview.split('/').pop()); 
       }
-
+      for (var pair of data.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]); 
+    }
       try {
       const response = await axios.put(`http://localhost:8000/addnews/${id}`, data, {
         headers: {

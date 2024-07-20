@@ -1,7 +1,8 @@
 const Admin = require('../models/adminmodel');
 
 module.exports.loginProcess = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body
+  ;
   try {
     const admin = await Admin.findOne({ username });
     if (!admin || admin.password !== password) {
