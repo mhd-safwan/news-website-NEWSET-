@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import LoginButton from '../screens/Loginout';
-import SearchBar from '../screens/Serch';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import LoginButton from './Loginout';
+import SearchBar from './Serch';
 
-export default function More() {
-
-
-  const categories = ['Breaking News', 'Business', 'Sports'];
+export default function More({ navigation }) {
+  const categories = [
+    { name: 'Breaking News', screen: 'BreakingNews' },
+    { name: 'Business', screen: 'Business' },
+    { name: 'Sports', screen: 'SportsScreen' }
+  ];
 
   return (
     <View style={styles.container}>
       <LoginButton />
       <SearchBar />
 
-      <Text style={styles.title}>Get better News </Text>
+      <Text style={styles.title}>Get better News</Text>
       <View style={styles.categoriesContainer}>
         {categories.map((category, index) => (
-          <TouchableOpacity key={index} style={styles.category}>
-            <Text style={styles.categoryText}>{category}</Text>
+          <TouchableOpacity
+            key={index}
+            style={styles.category}
+            onPress={() => navigation.navigate(category.screen)}
+          >
+            <Text style={styles.categoryText}>{category.name}</Text>
           </TouchableOpacity>
         ))}
       </View>
-    
     </View>
   );
 }
@@ -36,7 +41,6 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 18,
     margin: 20,
-
   },
   categoriesContainer: {
     flexDirection: 'row',

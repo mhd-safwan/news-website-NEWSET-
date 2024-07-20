@@ -2,16 +2,18 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import newsData from '../assets/newsData.json';
 
-export default function NewsCard() {
+export default function BreakingCard() {
   return (
-    <View>
+    <View style={styles.container}>
       {newsData.map((item, index) => (
         <View key={index} style={styles.card}>
           <Image source={{ uri: item.img }} style={styles.image} />
           <View style={styles.textContainer}>
-          <Text style={styles.date}>{item.date}</Text>
             <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.date}>{item.date}</Text>
             <Text style={styles.description}>{item.des}</Text>
+            <View style={styles.footer}>
+            </View>
           </View>
         </View>
       ))}
@@ -20,42 +22,50 @@ export default function NewsCard() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#f4f4f4',
+  },
   card: {
-    flexDirection: 'row',
-    marginBottom: 20,
-    backgroundColor: 'white',
-    borderRadius: 8,
+    marginBottom: 15,
+    backgroundColor: '#fff',
+    borderRadius: 12,
     overflow: 'hidden',
     shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 5,
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 5 },
+    elevation: 8,
   },
   image: {
-    width: 120, // Adjust width as needed
-    height: 120, // Adjust height as needed
-    marginRight: 10, // Spacing between image and text
+    width: '100%',
+    height: 200,
   },
   textContainer: {
-    flex: 1, // Takes up remaining space
-    justifyContent: 'center', // Center text vertically
+    padding: 15,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    marginBottom: 5,
   },
   description: {
-    fontSize: 14,
-    color: '#666',
-    marginVertical: 5, // Space between description and other text
+    fontSize: 16,
+    color: '#333',
+    marginBottom: 10,
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   date: {
     fontSize: 12,
-    color: '#999',
+    color: '#888',
   },
   category: {
     fontSize: 12,
-    color: '#999',
+    color: '#007bff',
+    fontWeight: 'bold',
   },
 });
