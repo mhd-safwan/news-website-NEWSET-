@@ -1,0 +1,27 @@
+[
+    {
+      "title": "Elon Musk announces Twitter encrypted direct messages; voice and video chat",
+      "img": "https://example.com/image1.jpg",
+      "des": "BUSINESS",
+      "date": "2 months ago",
+      "story": "Story content",
+      "category": "BUSINESS"
+    },
+    {
+      "title": "KL Rahul on road to recovery after successful surgery",
+      "img": "https://example.com/image2.jpg",
+      "des": "ENTERTAINMENT",
+      "date": "2 months ago",
+      "story": "Story content",
+      "category": "ENTERTAINMENT"
+    },
+    {
+      "title": "The Kerala Story Box Office Day 5: Continues To Have An Unbelievable...",
+      "img": "https://example.com/image3.jpg",
+      "des": "ENTERTAINMENT",
+      "date": "2 months ago",
+      "story": "Story content",
+      "category": "ENTERTAINMENT"
+    }
+  ]
+  
