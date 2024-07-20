@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Creat.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Creatnews() {
   const [file, setFile] = useState(null);
@@ -28,12 +30,12 @@ function Creatnews() {
 
   const Submit = async (e) => {
     e.preventDefault();
-    
+
     if (!file || !title || !date || !des || !story || !category) {
       setErrorMessage("Please fill in all the fields.");
       return;
     }
-    
+
     const data = new FormData();
     data.append("file", file);
     data.append("title", title);
@@ -49,6 +51,7 @@ function Creatnews() {
         },
       });
       console.log(response.data);
+      toast.success("News created successfully!");
       navigate("/admin/dash");
     } catch (err) {
       console.error("Error:", err);
@@ -57,11 +60,13 @@ function Creatnews() {
       } else {
         console.error("No response data");
       }
+      toast.error("Failed to create news. Please try again.");
     }
   };
 
   return (
     <div className="main">
+      <ToastContainer />
       <div className="sub-main">
         <h2>Create News</h2>
         <form onSubmit={Submit}>

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./Add.css";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+
 
 function Add() {
   const [file, setFile] = useState(null);
@@ -13,8 +15,6 @@ function Add() {
   const [imagePreview, setImagePreview] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
-
-
 
   useEffect(() => {
     axios
@@ -41,6 +41,7 @@ function Add() {
       setImagePreview(URL.createObjectURL(file));
     }
   };
+
   const submit = async (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -51,22 +52,20 @@ function Add() {
     data.append("date", date);
     data.append("category", category);
 
-      if (file) {
-        data.append("img", file);
-      } else if (imagePreview) {
-        data.append("img", imagePreview.split('/').pop()); 
-      }
-      for (var pair of data.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]); 
+    if (file) {
+      data.append("img", file);
+    } else if (imagePreview) {
+      data.append("img", imagePreview.split('/').pop());
     }
-      try {
+
+    try {
       const response = await axios.put(`http://localhost:8000/addnews/${id}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
       console.log('Response:', response.data);
-      console.log("first"+ date)
+      toast.success ("News updated successfully!");
       navigate("/admin/dash");
     } catch (err) {
       console.error("Error:", err);
@@ -75,15 +74,15 @@ function Add() {
       } else {
         console.error("Error without response data");
       }
-       
+      toast.error("Failed to update news. Please try again.");
     }
   };
 
-
   return (
     <div className="main">
+      <ToastContainer />
       <div className="sub-main">
-        <h2>update News</h2>
+        <h2>Update News</h2>
         <form onSubmit={submit}>
           <div className="form">
             <label htmlFor="date">Date</label>
@@ -130,13 +129,16 @@ function Add() {
 
           <div className="form">
             <label htmlFor="category">Category</label>
-            <select name="category" value={category} onChange={(e) =>setCategory(e.target.value)}>
+            <select
+              name="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
               <option value="">Select Category</option>
               <option value="sports">Sports</option>
               <option value="breaking">Breaking News</option>
               <option value="business">Business News</option>
               <option value="Local">Local news</option>
-
             </select>
           </div>
 
@@ -165,3 +167,4 @@ function Add() {
 }
 
 export default Add;
+

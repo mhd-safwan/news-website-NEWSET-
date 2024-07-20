@@ -11,7 +11,7 @@ const Carousel = () => {
     const fetchBreakingNews = async () => {
       try {
         const limit = 3; 
-        const response = await axios.get(`http://localhost:8000/breaking?$limit=${limit}`);
+        const response = await axios.get(`http://localhost:8000/sort?category=breaking&limit=limit`);
         setBreakingNews(response.data);
       } catch (err) {
         console.error("Error fetching breaking news:", err);

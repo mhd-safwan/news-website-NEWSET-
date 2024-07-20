@@ -14,6 +14,7 @@ import Bussines from "./pages/user/bussines-news/Bussines";
 import Logout from "./components/Logout";
 import Footer from "./components/footer/Footer";
 import Userlogin from "./components/userlogin/UserLogin";
+import UserLogout from "./components/Userlogout/Userlogout";
 
 const AdminRoutes = () => (
   <>
@@ -32,6 +33,7 @@ const UserRoutes = () => (
     <Navbar />
     <Routes>
     <Route path="/login" element={<Userlogin />} />
+    <Route path="/userlogout" element={<UserLogout />} />
       <Route path="/" element={<Home />} />
       <Route path="/news/:id" element={<NewsDetail />} />
       <Route path="/breaking-news" element={<Breaking />} />

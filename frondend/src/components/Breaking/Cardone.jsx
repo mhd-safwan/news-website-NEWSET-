@@ -10,7 +10,7 @@ function Cardone() {
   useEffect(() => {
     const fetchBreakingNews = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/breaking");
+        const response = await axios.get(`http://localhost:8000/sort?category=breaking`);
         setBreakingsNews(response.data);
       } catch (err) {
         console.error("Error fetching breaking news:", err);

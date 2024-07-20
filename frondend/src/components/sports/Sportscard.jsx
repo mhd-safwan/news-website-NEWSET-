@@ -10,7 +10,7 @@ function SportsCard() {
   useEffect(() => {
     const fetchsportsNews = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/sports");
+        const response = await axios.get(`http://localhost:8000/sort?category=sports`);
         setSports(response.data);
       } catch (err) {
         console.error("Error fetching sports news:", err);

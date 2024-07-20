@@ -9,10 +9,10 @@ function Card() {
 
   const fetchBreakingNews = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/admin`);
-      const breakingNewsData = response.data.filter(item => item.category === "Local");
+      const response = await axios.get(`http://localhost:8000/sort?category=Local`);
 
-      setLocalNews(breakingNewsData);
+
+      setLocalNews(response.data);
     } catch (err) {
       console.error("Error:", err);
     }

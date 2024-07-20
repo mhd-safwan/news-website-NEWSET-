@@ -34,9 +34,14 @@ function Navbar() {
                 <li className="nav-item">
                   <Link className="nav-link" to="/business">Business</Link>
                 </li>
+                <Link to="/userlogout">Logout</Link>
+
               </ul>
+              
             </div>
+           
           </div>
+          <Link to="/login">Login</Link>
         </nav>
       );
 }

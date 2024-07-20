@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./UserLogin.css";
 
-function Login() {
-  const [username, setUsername] = useState("");
+function UserLogin() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -12,21 +12,21 @@ function Login() {
   useEffect(() => {
     const sessionId = sessionStorage.getItem("sessionId");
     if (sessionId) {
-      navigate("/admin/dash");
+      navigate("/"); // Redirect to home or dashboard if session exists
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/login", {
-        username,
+      const response = await axios.post("http://localhost:8000/Userlog", {
+        email,
         password,
       });
 
       if (response.data.sessionId) {
         sessionStorage.setItem("sessionId", response.data.sessionId);
-        navigate("/admin/dash");
+        navigate("/"); // Redirect to home or dashboard after successful login
       } else {
         setError("Login failed. Please try again.");
       }
@@ -42,17 +42,17 @@ function Login() {
   return (
     <div className="login-container">
       <div className="login-logo">
+        <img src="path-to-your-logo.png" alt="Logo" />
       </div>
       <div className="login-form-wrapper">
         <div className="login-form-container">
-        <img id="img-globe" src=".\public\globe.png" alt="Logo" />
           <h2>Member Login</h2>
-          <form onSubmit={handleLogin}>
+          <form>
             <div className="form-group">
               <input
                 type="email"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 required
               />
@@ -67,9 +67,9 @@ function Login() {
               />
             </div>
             {error && <p className="error-message">{error}</p>}
-            <button type="submit">Login</button>
+            <button type="submit" onClick={handleLogin}>Login</button>
           </form>
-          <a href="/forgot-password" className="forgot-password-link">Forgot Username / Password?</a>
+          <a href="/forgot-password" className="forgot-password-link">Forgot email / Password?</a>
           <a href="/create-account" className="create-account-link">Create your Account</a>
         </div>
       </div>
@@ -77,4 +77,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default UserLogin;

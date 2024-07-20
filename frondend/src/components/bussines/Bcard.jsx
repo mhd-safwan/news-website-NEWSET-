@@ -10,7 +10,8 @@ function Bcard() {
   useEffect(() => {
     const fetchBusinessNews = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/business");
+         const response = await axios.get(`http://localhost:8000/sort?category=business`);
+
         setBusinessNews(response.data);
       } catch (err) {
         console.error("Error fetching business news:", err);
