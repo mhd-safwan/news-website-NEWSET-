@@ -6,7 +6,9 @@ const db = require("./config/db");
 const router = require("./routes/router");
 const session = require('express-session');
 const app = express();
+const host = '192.168.0.103'; 
 const port = 8000;
+
 db();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,6 +26,6 @@ app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 app.use("/", router);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(port, host, () => {
+  console.log(`Server is running on http://${host}:${port}`);
 });

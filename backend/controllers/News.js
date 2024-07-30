@@ -92,27 +92,35 @@ module.exports.sort = async (req, res, next) => {
 };
 
 module.exports.searchNews = async (req, res) => {
+  const searchTerm = req.query.query;
+  console.log('Search Term:', searchTerm); // Debugging line
+
+  if (!searchTerm) {
+    return res.status(400).json({ error: 'Please enter a search term.' });
+  }
 
   try {
-    const news = await newsModel.find({
-      $or: [
-        { title: new RegExp('i') },
-        { des: new RegExp('i') },
-        { story: new RegExp('i') },
-        { category: new RegExp('i') }
-      ]
-    });
-    if (!news) {
-      return res.status(400).json({error: 'enter proper search'})
+    const news = await newsModel.aggregate([
+      {
+        $match: {
+          $or: [
+            { title: { $regex: searchTerm, $options: 'i' } },
+            { category: { $regex: searchTerm, $options: 'i' } }
+          ]
+        }
+      }
+    ]);
+
+    console.log('Search Results:', news);
+
+    if (news.length === 0) {
+      return res.status(404).json({ error: 'No news found matching the search term.' });
     }
+
     res.status(200).json(news);
   } catch (error) {
+    console.error('Search Error:', error); 
     res.status(500).json({ error: error.message });
   }
 };
-
-
-
-
- 
 

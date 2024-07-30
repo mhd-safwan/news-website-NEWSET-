@@ -25,8 +25,9 @@ module.exports.Userlog = async (req, res) => {
     if (!user || user.password !== password) {
       return res.status(400).send('Invalid credentials');
     }
-    const sessionId ='123456789000' 
-    res.json({ sessionId });
+    req.session.adminId = user._id;
+
+    res.json({message: 'Login successful', sessionId: req.sessionID });
   } catch (error) {
     res.status(500).send('User login failed');
   }

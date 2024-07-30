@@ -9,7 +9,9 @@ module.exports.loginProcess = async (req, res) => {
       return res.status(400).send('Invalid credentials');
     }
     req.session.adminId = admin._id;
+   
     res.json({ message: 'Login successful', sessionId: req.sessionID });
+    
   } catch (error) {
     res.status(400).send('Admin login failed');
   }
