@@ -12,7 +12,7 @@ function UserLogin() {
   useEffect(() => {
     const sessionId = sessionStorage.getItem("sessionId");
     if (sessionId) {
-      navigate("/"); // Redirect to home or dashboard if session exists
+      navigate("/");
     }
   }, [navigate]);
 
@@ -26,7 +26,7 @@ function UserLogin() {
 
       if (response.data.sessionId) {
         sessionStorage.setItem("sessionId", response.data.sessionId);
-        navigate("/"); // Redirect to home or dashboard after successful login
+        navigate("/"); 
       } else {
         setError("Login failed. Please try again.");
       }
@@ -69,7 +69,6 @@ function UserLogin() {
             {error && <p className="error-message">{error}</p>}
             <button type="submit" onClick={handleLogin}>Login</button>
           </form>
-          <a href="/forgot-password" className="forgot-password-link">Forgot email / Password?</a>
           <a href="/create-account" className="create-account-link">Create your Account</a>
         </div>
       </div>

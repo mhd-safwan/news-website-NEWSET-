@@ -8,9 +8,8 @@ function UserLogout() {
   useEffect(() => {
     const logout = async () => {
       try {
-        await axios.post("http://localhost:8000/user/logout");
+        await axios.post("http://localhost:8000/Userlogout");
 
-        // Assuming you want to clear session data or tokens in the frontend
         sessionStorage.removeItem("sessionId");
 
         // Redirect to login page after successful logout
